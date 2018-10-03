@@ -16,6 +16,12 @@ namespace Buffteks3
         public string Email {get; set; }
         //role
         public string Role { get; set; }
+
+        public override string ToString()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
+
     }
 
 }

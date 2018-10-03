@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Buffteks3
 {
@@ -13,21 +15,53 @@ namespace Buffteks3
 
                     //no matter what, delete and then create
                     //db.Database.EnsureDeleted();
-                    //db.Database.EnsureCreated();
+                    db.Database.EnsureCreated();
 
-                    Student s = new Student()
+                    if(!db.Students.Any())
                     {
-                        StudentID = 3,
-                        FirstName = "Jeff",
-                        LastName = "Babb",
-                        PhoneNumber = "123-555-1234",
-                        Email = "asdf@asdfa.csd",
-                        Role = "Sophomore"
-                    };
-                    
-                    db.Students.Add(s);
+                        List<Student> students = new List<Student>()
+                        {
+                            new Student()
+                            {
+                                FirstName = "Jeffry",
+                                LastName = "Babb",
+                                PhoneNumber = "123-555-1234",
+                                Email = "test1@test.com",
+                                Role = "Senior"
+                            },
+                            new Student()
+                            {
+                                FirstName = "Joe",
+                                LastName = "Smith",
+                                PhoneNumber = "456-684-4684",
+                                Email = "fun@aol.com",
+                                Role = "Sophomore"
+                            },
+                            new Student()
+                            {
+                                FirstName = "Jane",
+                                LastName = "Doe",
+                                PhoneNumber = "123-555-1234",
+                                Email = "janestudent@buffs.wtamu.edu",
+                                Role = "Freshman"
+                            },                        
+                        };
 
-                    db.SaveChanges();
+                        db.Students.AddRange(students);  
+
+                        db.SaveChanges();                                              
+
+                    }
+                    else
+                    {
+                        var students = db.Students.ToList();
+                        foreach(Student s in students)
+                        {
+                            Console.WriteLine(s);
+                        }
+                    }
+
+
                 }
                 catch(Exception exp)
                 {
